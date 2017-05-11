@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Survey Form</h2>
+      <form class="my_form" action="/result" method="post">
+        <label>Your Name:
+          <input type="text" name="name" placeholder="Name"></label>
+
+        <label>Dojo Location:
+          <select id="loc_select" name="loc_select">
+            <option>Silicon Valley</option>
+            <option>Seattle</option>
+            <option>Los Angeles</option>
+            <option selected>Dallas</option>
+            <option>Washington DC</option>
+            <option>Chicago</option>
+            <option>Berkeley</option>
+            <option>Orange County</option></select></label>
+
+        <label>Favorite Language:
+          <select id="fav_lang" name="fav_lang">
+            <option>HTML</option>
+            <option>CSS</option>
+            <option selected>JavaScript</option>
+            <option>Python</option></select></label>
+
+        <label>Comment (optional):</label>
+        <textarea name="comment" rows="5" cols="50"></textarea>
+
+        <input id="submit_but" type="submit" name="submit" value="Submit">
+      </form>
+
+    </div> <!-- end of container div -->
+
+  </body>
+</html>
