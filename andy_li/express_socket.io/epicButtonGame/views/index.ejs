@@ -10,18 +10,16 @@
       $(document).ready(function() {
         var socket = io.connect();
         $("#epic_but").click(function() {
-          socket.emit("epic_press")
+          socket.emit("epic_press");
         });
 
-        socket.on("updated_message", function(server_data) {
-          console.log(server_data.response);
-          $("#header_count").prepend("The button has been pressed " + server_data.count + " time(s).");
+        $("#reset_but").click(function() {
+          socket.emit("reset_press");
         });
 
-        $("reset_but").click(function() {
-          socket.emit("reset_press", {
-
-          });
+        socket.on("but_count", function(server_data) {
+          console.log("Count:", server_data.count);
+          $("span#count_num").text(server_data.count);
         });
 
       });
@@ -29,7 +27,7 @@
   </head>
   <body>
     <div class="container">
-      <h2 id="header_count"></h2>
+      <h2>The button has been pressed <span id="count_num">0</span> time(s).</h2>
       <p>Press epic button to update count:</p>
       <button id="epic_but" type="button" name="epic_but">Push Epic Button</button>
       <button id="reset_but" type="button" name="reset_but">Reset Count</button>

@@ -24,16 +24,17 @@ var io = require("socket.io").listen(server);
 io.sockets.on("connection", function(socket) {
   console.log("Socket ID:", socket.id);
 
-  var count;
+  var count = 0;
   socket.on("epic_press", function() {
     count++;
-    console.log(count);
-    socket.broadcast.emit("count", {count: count})
+    console.log("Count:", count);
+    io.emit("but_count", {count: count})
   });
 
   socket.on("reset_press", function() {
     count = 0;
-    console.log(count);
+    console.log("Count:", count);
+    io.emit("but_count", {count: count})
 
   })
 });
