@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  outline: 0;
+}
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  display: block;
+  width: 30%;
+  margin: 20px auto;
+  padding: 50px;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-shadow: 3px 3px 3px gray;
+}
+
+#epic_but {
+  background: linear-gradient(blue, white);
+}
+
+#reset_but {
+  background: linear-gradient(red, white);
+}
