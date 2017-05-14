@@ -5,3 +5,8 @@
 h2 {
   color: green;
 }
+
+label, a.home_link {
+  display: block;
+
+}

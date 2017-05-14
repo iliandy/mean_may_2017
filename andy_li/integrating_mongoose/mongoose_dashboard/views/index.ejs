@@ -7,10 +7,10 @@
   </head>
   <body>
     <div class="container">
-      <h2>All Dragons</h2>
-      <% for (var dragon in dragons) { %>
-        <p>Name: <a href="/dragons/:<%= dragons[dragon].id %>"><%= dragons[dragon].name %></a></p>
-        <p>Owner: <%= dragons[dragon].owner %></p>
+      <h2>All Dragons...</h2>
+      <% for (var i in dragons) { %>
+        <p>Name: <a href="/dragons/<%= dragons[i].id %>"><%= dragons[i].name %></a></p>
+        <p>Owner: <%= dragons[i].owner %></p>
         <hr>
       <% } %>
 

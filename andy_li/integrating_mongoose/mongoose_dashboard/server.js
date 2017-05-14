@@ -38,31 +38,110 @@ app.get("/", function(req, res) {
   });
 });
 
-app.post('/quotes/create', function(req, res) {
-  console.log("-= Reached /quotes/create (redirect to /quotes) =-");
-  console.log("POST DATA", req.body);
-  // create a new Quote with the name and quote corresponding to those from req.body
-  var quote = new Quote({
+app.get("/dragons/new", function(req, res) {
+  console.log("-= Reached /dragons/new (new_dragon.ejs) =-");
+  res.render("new_dragon.ejs");
+});
+
+app.post("/dragons", function(req, res) {
+  console.log("-= Reached /dragons (redirect to /) =-");
+  console.log("POST data:", req.body);
+
+  var dragon = new Dragon({
     name: req.body.name,
-    quote: req.body.quote,
+    owner: req.body.owner,
   });
-  // save new quote to db and run a callback function with an error (if any) from operation
-  quote.save(function(err, quote) {
-    // if there is an error, go back to / and display error msgs at bottom
+
+  dragon.save(function(err, dragon) {
     if(err) {
-      console.log("Error in adding quote:", err);
-      res.render("index.ejs", {errors: quote.errors});
+      console.log("Error in adding dragon:", err);
+      res.send(err);
     }
-    else { // else console.log added quote and redirect to quotes route (/quotes)
-      console.log("Quote added:", quote);
-      res.redirect('/quotes');
+    else { // else console.log added dragon and redirect to dragons route (/dragons)
+      console.log("Dragon added:", dragon);
+      res.redirect('/');
     }
   });
 });
 
-app.get("/quotes", function(req, res) {
-  console.log("-= Reached / (quotes.ejs) =-");
+app.get("/dragons/:id", function(req, res) {
+  console.log("-= Reached /dragons/id (dragon.ejs) =-");
+  Dragon.findById(req.params.id).exec(function(err, dragon) {
+    if(err) {
+      console.log("Error in displaying dragon:", err);
+      res.send(err);
+    }
+    if(!dragon){
+      res.send(`${dragon} not found.`)
+    }
+    else {
+      console.log("Dragon displayed:", dragon);
+      res.render("dragon.ejs", {dragon: dragon});
+    }
 
+  });
+});
+
+app.get("/dragons/edit/:id", function(req, res) {
+  console.log("-= Reached /dragons/edit/id (edit_dragon.ejs) =-");
+  Dragon.findById(req.params.id).exec(function(err, dragon) {
+    if(err) {
+      console.log("Error in displaying dragon:", err);
+      res.send(err);
+    }
+    if(!dragon){
+      res.send(`${dragon} not found.`)
+    }
+    else {
+      console.log("Dragon displayed:", dragon);
+      res.render("edit_dragon.ejs", {dragon: dragon});
+    }
+
+  });
+});
+
+app.post("/dragons/:id", function(req, res) {
+  console.log("-= Reached /dragons/id (post) (redirect to /dragons/id (get)) =-");
+  Dragon.findById(req.params.id).exec(function(err, dragon) {
+    if(err) {
+      console.log("Error in editing dragon:", err);
+      res.send(err);
+    }
+    if(!dragon) {
+      res.send(`${dragon} not found.`);
+    }
+    else {
+      // edit specific dragon with form data
+      dragon.name = req.body.name;
+      dragon.owner = req.body.owner;
+      dragon.save(function(err, dragon) {
+        if(err){
+          res.send(err);
+        }
+        else {
+          console.log("Dragon after edit:", dragon);
+          res.redirect(`/dragons/${req.params.id}`);
+        }
+      }); // end dragon edit save
+    }
+  }); // end dragon id query
+
+});
+
+app.post("/dragons/destroy/:id", function(req, res) {
+  console.log("-= Reached /dragons/destroy/id (redirect to /) =-");
+  Dragon.findByIdAndRemove(req.params.id).exec(function(err, dragon) {
+    if(err) {
+      console.log("Error in deleting dragon:", err);
+      res.send(err);
+    }
+    if(!dragon) {
+      res.send(`${dragon} not found.`);
+    }
+    else {
+      res.redirect("/");
+    }
+  }); // end dragon id query
 
 });
 
