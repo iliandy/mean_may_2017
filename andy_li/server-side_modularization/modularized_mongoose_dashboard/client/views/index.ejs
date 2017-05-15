@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dragons</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>All Dragons...</h2>
+      <% for (var i in dragons) { %>
+        <p>Name: <a href="/dragons/<%= dragons[i].id %>"><%= dragons[i].name %></a></p>
+        <p>Owner: <%= dragons[i].owner %></p>
+        <hr>
+      <% } %>
+
+      <a href="/dragons/new">Create a new dragon!</a>
+    </div>
+
+  </body>
+</html>

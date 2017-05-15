@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit <%= dragon.name %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2> Dragon: <%= dragon.name %></h2>
+      <p>Current name: <%= dragon.name %></p>
+      <p>Current owner: <%= dragon.owner %></p>
+
+      <form action="/dragons/<%= dragon.id %>" method="post">
+        <label>New name: <input type="text" name="name" placeholder="Name"></label>
+        <label>New owner: <input type="text" name="owner" placeholder="Owner"></label>
+        <input type="submit" value="Edit my dragon">
+      </form>
+      <a class="home_link" href="/">Home</a>
+
+    </div>
+
+  </body>
+</html>

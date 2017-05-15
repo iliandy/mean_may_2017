@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= dragon.name %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2> Dragon: <%= dragon.name %></h2>
+      <p>Name: <%= dragon.name %></p>
+      <p>Owner: <%= dragon.owner %></p>
+      <a href="/dragons/edit/<%= dragon.id %>">Edit this dragon's info</a>
+      <form action="/dragons/destroy/<%= dragon.id %>" method="post">
+        <input type="submit" value="Delete this dragon">
+      </form>
+      <a class="home_link" href="/">Home</a>
+
+    </div>
+
+  </body>
+</html>
