@@ -43,8 +43,8 @@ app.post('/quotes/create', function(req, res) {
   quote.save(function(err, quote) {
     // if there is an error, go back to / and display error msgs at bottom
     if(err) {
-      console.log("Error in adding quote:", err);
-      res.render("index.ejs", {errors: quote.errors});
+      res.send(err);
+      console.log(err);
     }
     else { // else console.log added quote and redirect to quotes route (/quotes)
       console.log("Quote added:", quote);

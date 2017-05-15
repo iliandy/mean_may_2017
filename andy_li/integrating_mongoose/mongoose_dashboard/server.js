@@ -72,7 +72,7 @@ app.get("/dragons/:id", function(req, res) {
       res.send(err);
     }
     if(!dragon){
-      res.send(`${dragon} not found.`)
+      res.send(`${dragon} not found.`);
     }
     else {
       console.log("Dragon displayed:", dragon);
