@@ -1,0 +1,58 @@
+<html ng-app='myApp'>
+  <head>
+    <title>Controlling Users</title>
+    <script src=bower_components/angular/angular.js></script>
+    <script type='text/javascript'>
+      var myAppModule = angular.module('myApp', []);
+      myAppModule.controller('usersController', function($scope){
+        $scope.getUsers = function(){
+          $scope.users = [
+            //first_name:
+            //last_name:
+            //fav_lang:
+          ];
+        }
+        $scope.createUser = function(){
+          $scope.users.push($scope.user);
+          $scope.user = {};
+        }
+        $scope.deleteUser = function(user){
+          var i = $scope.users.indexOf(user);
+          $scope.users.splice(i, 1);
+        }
+      });
+    </script>
+  </head>
+<body>
+  <div class="container" ng-controller="usersController">
+    <form ng-submit="createUser()">
+      <label>First Name: <input type="text" placeholder="First Name" ng-model="user.first_name"></label>
+      <label>Last Name: <input type="text" placeholder="Last Name" ng-model="user.last_name"></label>
+      <label>Favorite Language: <input type="text" placeholder="Fav Lang" ng-model="user.fav_lang"></label>
+      <input type="submit" value="Create User">
+
+    </form>
+
+    <input placeholder="Filter Users" ng-model="searchUser">
+
+    <table>
+      <tbody ng-init="getUsers()">
+        <tr>
+          <th><a href="#" ng-click="sortBy('first_name')">First Name</a><span ng-show="sortProperty === 'first_name'"></span></th>
+          <th>Last Name</th>
+          <th>Fav Lang</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="user in users | filter: searchUser | orderBy: sortProperty">
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.fav_lang }}</td>
+          <td><button type="button" ng-click="deleteUser(user)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</body>
+</html>
