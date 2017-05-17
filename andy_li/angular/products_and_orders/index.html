@@ -1,0 +1,132 @@
+<html ng-app='app'>
+  <head>
+    <title>Controlling Products</title>
+    <script src=bower_components/angular/angular.js></script>
+    <script type='text/javascript'>
+      var appMod = angular.module('app', []);
+      // factories
+      appMod.factory("ProductFactory", function() {
+        var factory = {};
+        factory.products = [
+          //name:
+          //price:
+          //qty:
+          {name: "Pixel XL", price: 600, qty: 3},
+        ];
+        factory.getProducts = function(callback) {
+          callback(this.products);
+        };
+        factory.createProduct = function(newProduct, callback) {
+          newProduct.qty = 50;
+          factory.products.push(newProduct);
+          callback();
+        };
+        factory.deleteProduct = function(product, callback) {
+          var i = factory.products.indexOf(product);
+          factory.products.splice(i, 1);
+          callback();
+        };
+        factory.buyProduct = function(product, callback) {
+          var i = factory.products.indexOf(product);
+          factory.products[i].qty -= 1;  // decrement qty by 1 when buy button clicked
+          callback();
+        }
+
+        return factory;
+      });
+
+      // controllers
+      appMod.controller('ProductsController', function($scope, ProductFactory){
+        $scope.getProducts = function() {
+          ProductFactory.getProducts(function(products) {
+            $scope.products = products;
+          });
+        };
+        $scope.createProduct = function(newProduct) {
+          // newProduct.price = parseInt(newProduct.price);
+          ProductFactory.createProduct(newProduct, function() {
+            console.log(newProduct);
+            $scope.getProducts();
+            $scope.newProduct = {};
+          });
+        };
+        $scope.deleteProduct = function(product) {
+          ProductFactory.deleteProduct(product, function () {
+            $scope.getProducts();
+          });
+        };
+      });
+
+      appMod.controller("OrdersController", function($scope, ProductFactory) {
+        $scope.getProducts = function() {
+          ProductFactory.getProducts(function(products) {
+            $scope.products = products;
+          });
+        };
+        $scope.buyProduct = function(product) {
+          $scope.error = "";  // clears error msg for every event
+          if(product.qty <= 0) {
+            $scope.error = `${product.name} is out of stock...`;
+          }
+          else {
+            ProductFactory.buyProduct(product, $scope.getProducts);
+          }
+
+        }
+      });
+    </script>
+  </head>
+<body>
+  <div class="container">
+    <div class="products" ng-controller="ProductsController">
+      <h2>Products</h2>
+      <form ng-submit="createProduct(newProduct)">
+        <label>Product Name: <input type="text" placeholder="Name" ng-model="newProduct.name"></label>
+        <label>Product Price: $<input type="number" placeholder="Price" ng-model="newProduct.price"></label>
+        <input type="submit" value="Create Product">
+
+      </form>
+
+      <input placeholder="Filter Products" ng-model="searchProduct">
+
+      <table>
+        <tbody ng-init="getProducts()">
+          <tr>
+            <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name <span ng-show="sortType == 'name'">^</span></a></th>
+            <th><a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">Price <span ng-show="sortType == 'price'">^</span></a></th>
+            <th>Actions</th>
+          </tr>
+          <tr ng-repeat="product in products | filter: searchProduct | orderBy: sortType: sortReverse">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency: "$" }}</td>
+            <td><button type="button" ng-click="deleteProduct(product)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="orders" ng-controller="OrdersController">
+      <h2>Orders</h2>
+      <p>{{ error }}</p>
+      <table>
+        <tbody ng-init="getProducts()">
+          <tr>
+            <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name<span ng-show="sortType == 'name'">^</span></a></th>
+            <th><a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">Price<span ng-show="sortType == 'price'">^</span></a></th>
+            <th><a href="#" ng-click="sortType = 'qty'; sortReverse = !sortReverse">Qty Available<span ng-show="sortType == 'qty'">^</span></a></th>
+            <th>Actions</th>
+          </tr>
+          <tr ng-repeat="product in products | orderBy: sortType: sortReverse">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency: "$" }}</td>
+            <td>{{ product.qty }}</td>
+            <td><button type="button" ng-click="buyProduct(product)">Buy</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</body>
+</html>
