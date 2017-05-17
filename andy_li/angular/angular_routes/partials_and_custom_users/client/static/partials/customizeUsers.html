@@ -1,0 +1,27 @@
+<h2>Customise Users</h2>
+<form ng-submit="CUC.createUser(CUC.newUser)">
+  <label>First Name: <input type="text" placeholder="First Name" ng-model="CUC.newUser.first_name"></label>
+  <label>Last Name: <input type="text" placeholder="Last Name" ng-model="CUC.newUser.last_name"></label>
+  <label>Favorite Language: <input type="text" placeholder="Fav Lang" ng-model="CUC.newUser.fav_lang"></label>
+  <input type="submit" value="Create User">
+
+</form>
+
+<input placeholder="Filter Users" ng-model="searchUser">
+
+<table>
+  <tbody ng-init="CUC.getUsers()">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Fav Lang</th>
+      <th>Actions</th>
+    </tr>
+    <tr ng-repeat="user in CUC.users | filter: searchUser | orderBy: sortProperty">
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.fav_lang }}</td>
+      <td><button type="button" ng-click="CUC.deleteUser(user)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

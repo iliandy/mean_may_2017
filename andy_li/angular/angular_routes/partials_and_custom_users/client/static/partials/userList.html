@@ -1,0 +1,16 @@
+<h2>Users List</h2>
+<table>
+  <tbody ng-init="ULC.getUsers()">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Fav Lang</th>
+      <th>Actions</th>
+    </tr>
+    <tr ng-repeat="user in ULC.users">
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.fav_lang }}</td>
+    </tr>
+  </tbody>
+</table>
