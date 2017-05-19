@@ -1,0 +1,32 @@
+<div ng-init="AC.getPlayers(); AC.getTeams()">
+  <form ng-submit="AC.createAssociation(AC.newAssociation)">
+    <label>Players:
+      <select ng-model="AC.newAssociation.player">
+        <option ng-repeat="player in AC.players" ng-value="{{ player }}">{{ player.name }}</option>
+      </select>
+    </label>
+    <label>Teams:
+      <select ng-model="AC.newAssociation.team">
+        <option ng-repeat="team in AC.teams" ng-value="{{ team }}">{{ team.name }}</option>
+      </select>
+    </label>
+
+    <input type="submit" value="Assign Player to Team">
+  </form>
+
+  <table>
+    <tbody>
+      <tr>
+        <th><a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Player <span ng-show="sortType == 'name'">^</span></a></th>
+        <th><a href="" ng-click="sortType = 'team'; sortReverse = !sortReverse">Team <span ng-show="sortType == 'team'">^</span></a></th>
+        <th>Actions</th>
+      </tr>
+      <tr ng-repeat="player in AC.players | orderBy: sortType: sortReverse" ng-if="player.team">
+        <td><a href="#!/players/{{ player.name }}">{{ player.name }}</a></td>
+        <td>{{ player.team.name }}</td>
+        <td><button type="button" ng-click="AC.deleteAssociation(player)">Remove Team Association</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

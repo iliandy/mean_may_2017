@@ -35,8 +35,7 @@ appMod.factory("UserFactory", function() {
   };
   factory.showUser = function(user, callback) {
     var i = factory.users.indexOf(user);
-    factory.users[i];
-    callback();
+    callback(factory.users[i]);
   }
 
   return factory;
@@ -44,7 +43,7 @@ appMod.factory("UserFactory", function() {
 
 
 
-appMod.controller('CustomizeUsersController', function(UserFactory) {
+appMod.controller('CustomizeUsersController', function(UserFactory, $location) {
   var self = this;
 
   self.getUsers = function() {
@@ -57,6 +56,7 @@ appMod.controller('CustomizeUsersController', function(UserFactory) {
     UserFactory.createUser(newUser, function() {
       self.getUsers();
       self.newUser = {};
+      $location.url("/user_list");
     });
   };
   self.deleteUser = function(user) {

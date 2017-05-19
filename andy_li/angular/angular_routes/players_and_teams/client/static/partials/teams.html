@@ -1,0 +1,17 @@
+<form ng-submit="TC.createTeam(TC.newTeam)">
+  <label>Name: <input type="text" ng-model="TC.newTeam.name"></label>
+  <input type="submit" value="Add Team">
+</form>
+
+<table>
+  <tbody ng-init="TC.getTeams()">
+    <tr>
+      <th><a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name <span ng-show="sortType == 'name'">^</span></a></th>
+      <th>Actions</th>
+    </tr>
+    <tr ng-repeat="team in TC.teams | orderBy: sortType: sortReverse">
+      <td>{{ team.name }}</td>
+      <td><button type="button" ng-click="TC.deleteTeam(team)">Remove Team</button></td>
+    </tr>
+  </tbody>
+</table>

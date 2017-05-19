@@ -1,0 +1,17 @@
+<form ng-submit="PC.createPlayer(PC.newPlayer)">
+  <label>Name: <input type="text" ng-model="PC.newPlayer.name"></label>
+  <input type="submit" value="Add Player">
+</form>
+
+<table>
+  <tbody ng-init="PC.getPlayers()">
+    <tr>
+      <th><a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name <span ng-show="sortType == 'name'">^</span></a></th>
+      <th>Actions</th>
+    </tr>
+    <tr ng-repeat="player in PC.players | orderBy: sortType: sortReverse">
+      <td><a href="#!/players/{{ player.name }}">{{ player.name }}</a></td>
+      <td><button type="button" ng-click="PC.deletePlayer(player)">Remove Player</button></td>
+    </tr>
+  </tbody>
+</table>
