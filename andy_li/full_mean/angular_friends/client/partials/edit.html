@@ -1,0 +1,14 @@
+<h3>Edit {{ friend.name }}'s Info</h3>
+<h4>Current Info:</h4>
+<p>First Name: {{ friend.first_name }}</p>
+<p>Last Name: {{ friend.last_name }}</p>
+<p>Birthday: {{ friend.bday }}</p>
+
+<h4>Edit Info:</h4>
+<form ng-submit="updateFriend(friend)">
+  <label>First Name: <input type="text" ng-model="friend.first_name"></label>
+  <label>Last Name: <input type="text" ng-model="friend.last_name"></label>
+  <label>Birthday: <input type="date" ng-model="friend.bday"></label>
+  <input type="submit" value="Update friend info">
+
+</form>

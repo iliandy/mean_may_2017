@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var Friend = mongoose.model('Friend');
 
-console.log("Friends controller...");
 module.exports = {
   index: function(req, res){
     console.log("-= Reached /friends [get] =-");
@@ -62,9 +61,7 @@ module.exports = {
     //     });
     //   }
     //   // edit specific friend with form data
-    //   friend.first_name = req.body.first_name;
-    //   friend.last_name = req.body.last_name;
-    //   friend.bday = req.body.bday;
+    //   friend.name = req.body.name;
     //   friend.save(function(err, friend) {
     //     if(err) {
     //       return res.json(err);
