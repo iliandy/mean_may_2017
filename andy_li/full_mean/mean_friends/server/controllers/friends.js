@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var Friend = mongoose.model('Friend');
 
-console.log("Friends controller...");
 module.exports = {
   index: function(req, res){
     console.log("-= Reached /friends [get] =-");
@@ -76,6 +75,9 @@ module.exports = {
 
     // .findByIdandUpdate method
     Friend.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, function(err, friend) {
+      console.log(req.params.id);
+      console.log(req.body);
+
       if(err) {
         return res.json(err);
       }

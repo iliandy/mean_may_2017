@@ -1,0 +1,19 @@
+<div ng-init="FC.show()">
+  <h3>Edit {{ FC.friend.first_name }}'s Info</h3>
+  <h4>Current Info:</h4>
+  <p>First Name: {{ FC.friend.first_name }}</p>
+  <p>Last Name: {{ FC.friend.last_name }}</p>
+  <p>Birthday: {{ FC.friend.bday | date: "MMM dd, yyyy"}}</p>
+
+  <h4>Edit Info:</h4>
+  <form ng-submit="FC.update(FC.editFriend)">
+    <label>First Name: <input type="text" ng-model="FC.editFriend.first_name"></label>
+    <label>Last Name: <input type="text" ng-model="FC.editFriend.last_name"></label>
+    <label>Birthday: <input type="date" ng-model="FC.editFriend.bday"></label>
+    <input type="submit" value="Update friend info">
+
+  </form>
+
+  <p class="err_msg" ng-repeat="error in FC.errors">{{ error }}</p>
+
+</div>

@@ -1,0 +1,21 @@
+{
+  "name": "file_structure_and_simple_server",
+  "homepage": "https://github.com/iliandy/mean_may_2017",
+  "authors": [
+    "iliandy <iandyli@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4"
+  }
+}

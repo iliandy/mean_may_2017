@@ -1,6 +1,5 @@
 var Friends = require("../controllers/friends.js");
 
-console.log('Route...');
 module.exports = function(app){
   app.get('/friends', Friends.index);
   app.get('/friends/:id', Friends.show);
