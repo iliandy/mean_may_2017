@@ -19,7 +19,6 @@ app.controller("FriendsController", function(FriendFactory, $location, $routePar
       // clear our new Friend object so user can re-enter form input
       self.newFriend = {};
       // if there are errors in response, add each error message to errors array to display on front end
-      console.log(res.data);
       if(res.data.errors) {
         for(key in res.data.errors) {
           var error = res.data.errors[key];
@@ -33,22 +32,30 @@ app.controller("FriendsController", function(FriendFactory, $location, $routePar
   };    // end of self.create method
 
   self.show = function() {
+    // send friend id to factory show method (http get to server to retrieve friend)
     FriendFactory.show($routeParams.id, function(res) {
-      // friend found, set friend found to controller friend object to be displayed
+      // set responded friend to controller friend object to be displayed
       self.friend = res.data;
-      // console.log(self.friend);
     });   // end of FriendFactory show method
   };    // end of self.show method
 
   self.update = function(editFriend) {
-    console.log(editFriend);
+    // send friend id and updated edit friend input object to factory update method (http put to server for update)
     FriendFactory.update($routeParams.id, editFriend, function(res) {
+      // if there are errors in response, add each error message to errors array to display on front end
+      if(res.data.errors) {
+        for(key in res.data.errors) {
+          var error = res.data.errors[key];
+          self.errors.push(error.message);
+        }
+      }
+      // set responded updated friend to controller friend object to be displayed
       self.friend = res.data;
     });
   };
 
   self.delete = function(friend) {
-    console.log(friend._id);
+    // send friend id to factory delete method (http delete to server) to delete specific friend
     FriendFactory.delete(friend._id, self.index);
   };
 

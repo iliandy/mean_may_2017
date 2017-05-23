@@ -49,7 +49,7 @@ module.exports = {
   },
 
   update: function(req, res){
-    console.log("-= Reached /friends/id [put/patch] =-");
+    console.log("-= Reached /friends/id [put] =-");
     // .save method
     // Friend.findById(req.params.id).exec(function(err, friend) {
     //   if(err) {
@@ -75,9 +75,6 @@ module.exports = {
 
     // .findByIdandUpdate method
     Friend.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, function(err, friend) {
-      console.log(req.params.id);
-      console.log(req.body);
-
       if(err) {
         return res.json(err);
       }
