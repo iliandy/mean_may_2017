@@ -1,0 +1,15 @@
+h2 {
+  color: green;
+}
+
+.err_msgs {
+  color: red;
+}
+
+.comment_indent {
+  margin-left: 3%;
+}
+
+.inline_block {
+  display: inline-block;
+}

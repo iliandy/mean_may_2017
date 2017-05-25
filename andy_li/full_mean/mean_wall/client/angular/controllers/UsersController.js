@@ -1,9 +1,9 @@
 app.controller("UsersController", function(UserFactory, $cookies, $location) {
-  console.log("Initializing UsersController...");
+  console.log("Loaded UsersController...");
   var self = this;
   self.regErrors = [];
   self.loginErrors = [];
-  self.user = {};
+  self.currentUser = {};
 
   self.create = function(newUser) {
     self.regErrors = [];
@@ -16,7 +16,6 @@ app.controller("UsersController", function(UserFactory, $cookies, $location) {
     }
 
     UserFactory.create(newUser, function(res) {
-      console.log(res.data);
       // if there are errors in response, add each error message to regErrors array to display on front end
       if(res.data.errors) {
         for(key in res.data.errors) {
@@ -25,13 +24,14 @@ app.controller("UsersController", function(UserFactory, $cookies, $location) {
         }
       }
       // duplicate e-mail used for registration
-      // if(res.data.code == 11000) {
-      //   self.regErrors.push("E-mail already in use.");
-      // }
+      if(res.data.errmsg) {
+        self.regErrors.push(res.data.errmsg);
+      }
       // registration successful, save User object into session cookie
       else {
         var user = res.data;
         $cookies.putObject("user", user);
+        console.log(user);
         // redirect to home dashboard
         $location.url("/home");
       }
@@ -79,7 +79,7 @@ app.controller("UsersController", function(UserFactory, $cookies, $location) {
   };
 
   self.getUser = function() {
-    self.user = $cookies.getObject("user");
+    self.currentUser = $cookies.getObject("user");
   };
 
 

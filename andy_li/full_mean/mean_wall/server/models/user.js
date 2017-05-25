@@ -1,6 +1,9 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 
+var Message = mongoose.model("Message");
+var Comment = mongoose.model("Comment");
+
 var UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -26,7 +29,16 @@ var UserSchema = new mongoose.Schema({
   birthday: {
     type: String,
     required: [true, "Birthday input can't be blank."],
-  }
+  },
+  messages: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Message",
+  }],
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment",
+  }],
+
 });
 
 UserSchema.methods.hashPassword = function(password) {
@@ -40,5 +52,16 @@ UserSchema.pre("save", function(callback) {
   this.hashPassword(this.password);
   callback();
 });
+
+UserSchema.pre("remove", function(callback) {
+  var self = this;
+  Message.remove({ user: self._id }, function() {
+
+  }).then(function() {
+    Comment.remove({ user: self._id }, function() {
+      callback();
+    }); // remove Comment 1st
+  });   // remove Message 2nd
+});     // remove User 3rd
 
 mongoose.model("User", UserSchema);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>MEAN Wall</title>
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script src="angular-cookies/angular-cookies.js"></script>
+
+    <script src="angular/config.js"></script>
+    <script src="angular/factories/UserFactory.js"></script>
+    <script src="angular/factories/MessageFactory.js"></script>
+    <script src="angular/factories/CommentFactory.js"></script>
+    <script src="angular/controllers/UsersController.js"></script>
+    <script src="angular/controllers/MessagesController.js"></script>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div ng-view>
+
+      </div>
+    </div>
+
+  </body>
+</html>

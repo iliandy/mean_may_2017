@@ -1,0 +1,22 @@
+{
+  "name": "login_and_registration",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "iliandy <iandyli@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/iliandy/mean_may_2017",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-cookies": "^1.6.4"
+  }
+}
