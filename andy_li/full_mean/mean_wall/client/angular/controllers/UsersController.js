@@ -24,8 +24,8 @@ app.controller("UsersController", function(UserFactory, $cookies, $location) {
         }
       }
       // duplicate e-mail used for registration
-      if(res.data.errmsg) {
-        self.regErrors.push(res.data.errmsg);
+      else if(res.data.errmsg) {
+        self.regErrors.push("E-mail already in use.");
       }
       // registration successful, save User object into session cookie
       else {
